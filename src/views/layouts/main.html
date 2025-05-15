@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+
+    <!-- Used to add dark mode right away, adding here prevents any flicker -->
+    <script>
+        // prevent dark mode flicker by setting dark class immediately.
+        if ( localStorage.getItem('dark') ) { document.documentElement.classList.add('dark'); }
+    </script>
+    
+    <style>
+        .prose img{
+            border-radius: 20px;
+        }
+    </style>
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.png">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/@tailwindcss/typography@0.5.0/dist/typography.min.css">
+    {tailwindcss}
+</head>
+<body class="antialiased ease bg-gray-50 dark:bg-stone-950">
+
+    <div class="relative">
+        <div class="max-w-2xl mx-auto flex justify-between items-center h-20 select-none px-6 xl:px-0">
+            <a href="/" class="font-black text-xl dark:text-white">
+                <span class="bg-black dark:bg-white text-white dark:text-black px-2 text-[13px] py-1.5 font-bold rounded">SLATE</span>
+            </a>
+            <nav class="relative flex flex-row-reverse sm:flex-row uppercase text-[13px]">
+                <div id="openMenu" class="sm:hidden w-6 h-6 flex flex-col justify-center items-end cursor-pointer ml-4">
+                    <svg class="w-8 h-8 dark:text-stone-200" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 8h16M4 16h16"></path></svg>
+                </div>
+                <div id="closeMenu" class="fixed top-0 right-0 mr-6 rounded-lg mt-6 z-50 w-8 h-8 p-1 flex flex-col hidden sm:hidden justify-center items-end cursor-pointer ml-4">
+                    <svg class="w-6 h-6 text-stone-600 dark:text-stone-200" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </div>
+                <div id="menu" class="fixed top-0 right-0 h-screen sm:h-auto sm:relative flex flex-col justify-start hidden items-end sm:flex-row z-40 sm:flex w-full font-semibold text-xl sm:text-[13px] sm:w-auto pr-4 sm:pr-0 pt-20 sm:pt-0">
+                    <div class="absolute w-full h-full inset-0 bg-white shadow-sm dark:bg-stone-950 top-0 right-0 block sm:hidden"></div>
+                    <ForEach collection="menu">
+                        <a href="{menu.url}" class="hover:underline text-stone-700 dark:text-stone-400 hover:text-stone-950 dark:hover:text-white relative flex inline items-center px-2 tracking-wide">{menu.name}</a>
+                    </ForEach>
+
+                </div>
+                <div id="darkToggle" class="font-medium relative flex items-center pl-6 ml-4 cursor-pointer group tracking-wide  dark:text-white"> 
+                    <div class="horizon w-6 h-6 overflow-hidden flex justify-center items-center border-b group-hover:border-stone-600 border-transparent absolute left-0">
+                        <svg class="w-6 h-6 transform transition duration-700 ease absolute" id="sun" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg class="w-6 h-6 transform transition duration-700 ease absolute hidden" id="moon" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </div> 
+                    <span class="hidden sm:inline-block">
+                        <span id="dayText" class="ml-2">Day mode</span>
+                        <span id="nightText" class="ml-2 hidden">Night mode</span>
+                    </span>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <main>
+        {slot}
+    </main>
+
+    <a href="https://devdojo.com/devblog" class="fixed transform -rotate-90 ml-3 origin-left left-0 bottom-0 font-thin text-xs text-stone-700 dark:text-stone-200 hover:text-black leading-none transition-colors duration-150 ease uppercase font-thin hidden md:block">
+        Crafted with dev <span class="font-bold">blog</span>
+    </a>
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>
